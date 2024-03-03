@@ -2,6 +2,10 @@
 
 #define rep(i, n) for (int i = 0; i < (n); ++i)
 
+using ll = long long;
+
+using ld = long double;
+
 template <typename First>
 void debug(First x, int n) {
   rep(i, n) {
