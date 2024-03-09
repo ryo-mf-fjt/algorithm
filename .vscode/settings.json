@@ -4,6 +4,9 @@
   "[cpp]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"
   },
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  },
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
   }
