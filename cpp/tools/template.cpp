@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <cstdio>
 #include <vector>
 
 #include "lib/macro.hpp"
