@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -17,12 +18,12 @@ void debug(T v) {
 template <typename It>
 void debug(It x, int n) {
   rep(i, n) {
-    if (i != n - 1) {
-      cout << x[i] << ' ' << flush;
-    } else {
-      cout << x[i] << endl;
+    if (i != 0) {
+      cout << ' ' << flush;
     }
+    cout << x[i] << flush;
   }
+  cout << endl;
 }
 
 template <typename It>
