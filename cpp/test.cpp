@@ -1,8 +1,8 @@
-#include "lib/macro.hpp"
+#include "lib/base.hpp"
 
 int n;
 
 int main() {
-  scanf("%d", &n);
-  printf("%d\n", n);
+  cin >> n;
+  cout << n << endl;
 }

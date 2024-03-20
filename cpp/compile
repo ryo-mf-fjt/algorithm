@@ -2,5 +2,5 @@
 
 cd `dirname $0`
 
-python tools/resolve.py test.cpp > out.cpp
+python3 tools/resolve.py test.cpp > out.cpp
 g++ -std=c++20 out.cpp -o out
