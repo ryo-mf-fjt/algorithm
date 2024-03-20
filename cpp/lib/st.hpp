@@ -1,3 +1,5 @@
+#include <functional>
+
 #include "base.hpp"
 
 template <typename T, int N>
@@ -33,7 +35,7 @@ class St {
   template <typename It>
   T init(It first, It last, int k = 0, int l = 0, int r = _N) {
     if (r - l == 1) {
-      return st[k] = first + l < last ? *(first + l) : bottom;
+      return st[k] = (first + l < last ? *(first + l) : bottom);
     }
     return st[k] = comp(init(first, last, k * 2 + 1, l, (l + r) / 2),
                         init(first, last, k * 2 + 2, (l + r) / 2, r)
