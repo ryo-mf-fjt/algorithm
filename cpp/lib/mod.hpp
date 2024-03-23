@@ -6,7 +6,8 @@ class Mod {
   ll val;
 
  public:
-  inline Mod(ll val = 0)
+  inline Mod() : val(0) {}
+  inline Mod(ll val)
       : val(val >= 0 ? val % mod : (-(-val) % mod + mod) % mod) {}
 
   inline Mod operator+(const Mod &x) const { return Mod(this->val + x.val); }
