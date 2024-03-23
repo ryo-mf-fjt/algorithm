@@ -87,9 +87,10 @@ class NTT {
     return conv(x.begin(), x.end(), y.begin(), y.end());
   }
 
-  static V debug(const V& x) {
+  template <typename T>
+  static vector<T> debug(const vector<T>& x) {
     V y(x);
-    while (!y.empty() && y.back() == 0) {
+    while (!y.empty() && y.back() == T()) {
       y.pop_back();
     }
     return y;
