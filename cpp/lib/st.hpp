@@ -5,12 +5,12 @@
 template <typename T, int N>
 class St {
  private:
-  constexpr static int pow2(int n, int _n) {
-    return n <= _n ? _n : pow2(n, _n * 2);
+  constexpr static int pow2_ceil(int n, int _n) {
+    return n <= _n ? _n : pow2_ceil(n, _n * 2);
   }
 
  public:
-  constexpr static const int _N = pow2(N, 1);
+  constexpr static const int _N = pow2_ceil(N, 1);
   using Comp = function<T(const T&, const T&)>;
 
  public:

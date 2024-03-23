@@ -6,7 +6,8 @@ class Mod {
   ll val;
 
  public:
-  inline Mod(ll val = 0) : val(val % mod) {}
+  inline Mod(ll val = 0)
+      : val(val >= 0 ? val % mod : (-(-val) % mod + mod) % mod) {}
 
   inline Mod operator+(const Mod &x) const { return Mod(this->val + x.val); }
   inline Mod operator-(const Mod &x) const {
@@ -26,6 +27,8 @@ class Mod {
     this->val = (this->val * x.val) % mod;
     return *this;
   }
+
+  inline bool operator==(const Mod &x) { return this->val == x.val; }
 };
 
 template <ll mod>
