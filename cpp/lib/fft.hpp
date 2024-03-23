@@ -11,7 +11,7 @@ constexpr int pow2_divisor(int x, int n) {
 }
 
 template <int mod_p = fft_mod_p_1>
-class fft {
+class FFT {
  private:
   constexpr static int pow2_ceil(int n, int _n = 1) {
     return n <= _n ? _n : pow2_ceil(n, _n * 2);

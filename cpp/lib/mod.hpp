@@ -27,9 +27,12 @@ class Mod {
     this->val = (this->val * x.val) % mod;
     return *this;
   }
-
-  inline bool operator==(const Mod &x) { return this->val == x.val; }
 };
+
+template <ll mod>
+inline bool operator==(const Mod<mod> &x, const Mod<mod> &y) {
+  return x.val == y.val;
+}
 
 template <ll mod>
 ostream &operator<<(ostream &stream, const Mod<mod> &x) {
