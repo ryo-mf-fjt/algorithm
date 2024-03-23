@@ -1,3 +1,5 @@
-out.cpp
-out
+cpp/main_resolved.cpp
+cpp/main
+cpp/test.cpp
+cpp/test
 rust/target
