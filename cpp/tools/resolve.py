@@ -19,4 +19,5 @@ def resolve(fn: str, included: set):
     )
 
 
-print(resolve(sys.argv[1], set()))
+included = set()
+print("\n".join([resolve(fn, included) for fn in sys.argv[1:]]))

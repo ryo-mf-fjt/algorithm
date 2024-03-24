@@ -3,9 +3,9 @@
 #include "mod.hpp"
 #include "primitive_root.hpp"
 
-const int ntt_mod_p_1 = 998244353;
-const int ntt_mod_p_2 = 167772161;
-const int ntt_mod_p_3 = 469762049;
+extern const int ntt_mod_p_1 = 998244353;
+extern const int ntt_mod_p_2 = 167772161;
+extern const int ntt_mod_p_3 = 469762049;
 
 constexpr int pow2_divisor(int x, int n) {
   return x % (n * 2) == 0 ? pow2_divisor(x, n * 2) : n;
