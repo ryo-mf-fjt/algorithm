@@ -2,14 +2,14 @@
 
 #include "./fft.hpp"
 
-TEST(FFT_t, normal) {
+TEST(FFT, t) {
   using F = FFT<>;
   vector<int> x = {1, 2, 3, 4};
   EXPECT_EQ(F::round(F::t(x, 4)),
             vector<complex<int>>({{10, 0}, {-2, -2}, {-2, 0}, {-2, 2}}));
 }
 
-TEST(FFT_conv, normal) {
+TEST(FFT, conv) {
   using F = FFT<>;
   vector<int> x = {1, 2};
   vector<int> y = {3, 4};

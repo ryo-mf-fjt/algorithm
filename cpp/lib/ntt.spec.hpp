@@ -2,7 +2,7 @@
 
 #include "./ntt.hpp"
 
-TEST(NTT_conv, normal) {
+TEST(NTT, conv) {
   using F = NTT<>;
   vector<int> x = {1, 2};
   vector<int> y = {3, 4};
