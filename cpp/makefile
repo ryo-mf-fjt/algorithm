@@ -6,8 +6,8 @@ test: test_compiple
 
 compile:
 	python3 tools/resolve.py main.cpp > main_resolved.cpp
-	g++ -std=c++17 -O2 main_resolved.cpp -o main
+	g++ -std=c++17 -O2 -Wall -Wextra main_resolved.cpp -o main
 
 test_compiple:
 	python3 tools/resolve.py **/*.spec.hpp > test.cpp
-	g++ -std=c++17 -O2 test.cpp -o test -lgtest -lgtest_main
+	g++ -std=c++17 -O2 -Wall -Wextra test.cpp -o test -lgtest -lgtest_main

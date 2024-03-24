@@ -27,7 +27,7 @@ tuple<Rest...> tail(const tuple<T, Rest...>& t) {
       [](const T&, const Rest&... rest) { return make_tuple(rest...); }, t);
 }
 
-tuple<> operator+(const tuple<>& a, const tuple<>& b) { return make_tuple(); }
+tuple<> operator+(const tuple<>&, const tuple<>&) { return make_tuple(); }
 
 template <typename T, typename... Rest>
 tuple<T, Rest...> operator+(const tuple<T, Rest...>& a,
