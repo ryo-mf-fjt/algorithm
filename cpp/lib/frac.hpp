@@ -8,7 +8,8 @@ class Frac {
   T a, b;
 
  public:
-  inline Frac(const T &a = 0, const T &b = 1) : a(a), b(b) {}
+  inline Frac() : a(0), b(1) {}
+  inline Frac(const T &a, const T &b = 1) : a(a), b(b) {}
 
   inline Frac operator+(const Frac &x) const {
     Frac t = *this;
