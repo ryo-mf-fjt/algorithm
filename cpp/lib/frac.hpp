@@ -1,5 +1,5 @@
 #include "base.hpp"
-#include "math.hpp"
+#include "gcd.hpp"
 
 template <typename T = ll>
 class Frac {

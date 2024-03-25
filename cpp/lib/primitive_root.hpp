@@ -1,5 +1,5 @@
 #include "base.hpp"
-#include "math.hpp"
+#include "pow.hpp"
 
 template <int...>
 struct seq {
