@@ -9,7 +9,8 @@ class Frac {
 
  public:
   inline Frac() : a(0), b(1) {}
-  inline Frac(const T &a, const T &b = 1) : a(a), b(b) {}
+  inline Frac(const T &a) : a(a), b(1) {}
+  inline Frac(const T &a, const T &b) : a(a), b(b) { reduce(); }
 
   inline Frac operator+(const Frac &x) const {
     Frac t = *this;
@@ -82,7 +83,7 @@ inline bool operator<=(const Frac<T> &x, const Frac<T> &y) {
 
 template <typename T>
 inline bool operator<(const Frac<T> &x, const Frac<T> &y) {
-  return x.a * y.b <= y.a * x.b;
+  return x.a * y.b < y.a * x.b;
 }
 
 template <typename T>
@@ -97,5 +98,5 @@ inline bool operator>(const Frac<T> &x, const Frac<T> &y) {
 
 template <typename T>
 ostream &operator<<(ostream &stream, const Frac<T> &x) {
-  return stream << x.a << " / " << x.b;
+  return stream << x.a << '/' << x.b;
 };

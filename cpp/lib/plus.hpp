@@ -12,12 +12,6 @@ pair<T, U> operator-(const pair<T, U>& a, const pair<T, U>& b) {
   return make_pair(a.first - b.first, a.second - b.second);
 }
 
-template <typename T, typename... Rest>
-tuple<Rest...> tail(const tuple<T, Rest...>& t) {
-  return apply(
-      [](const T&, const Rest&... rest) { return make_tuple(rest...); }, t);
-}
-
 tuple<> operator+(const tuple<>&, const tuple<>&) { return make_tuple(); }
 
 template <typename T, typename... Rest>
