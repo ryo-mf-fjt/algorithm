@@ -63,8 +63,7 @@ class NTT {
     V y(_ntt_n);
     V tmp(_ntt_n);
     base_fft_t(x.data(), _ntt_n, y.data(), ep, tmp.data());
-    int inv_underscore_ntt_n = const_inv_mod_p(_ntt_n, mod_p);
-    rep(i, _ntt_n) { y[i] *= inv_underscore_ntt_n; }
+    rep(i, _ntt_n) { y[i] /= _ntt_n; }
     return y;
   }
   template <typename T>
