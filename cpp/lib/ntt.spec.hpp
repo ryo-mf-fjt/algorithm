@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "./ntt.hpp"
+#include "ntt.hpp"
 
 TEST(NTT, conv) {
   using F = NTT<>;

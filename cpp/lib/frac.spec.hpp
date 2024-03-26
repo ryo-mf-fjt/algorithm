@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "./frac.hpp"
+#include "frac.hpp"
 
 TEST(Frac, plus) {
   using Q = Frac<>;

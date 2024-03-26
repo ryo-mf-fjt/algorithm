@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "./fft.hpp"
+#include "fft.hpp"
 
 TEST(FFT, t) {
   using F = FFT<>;

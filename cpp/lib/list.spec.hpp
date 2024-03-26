@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "./list.hpp"
+#include "list.hpp"
 
 TEST(List, push_front_push_back_insert) {
   List<6> list;
