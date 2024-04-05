@@ -25,9 +25,7 @@ struct prime_seq<n, i, enable_if_t<n % i == 0>>
 
 // 原始根か判定する
 template <int p, int x, typename MulPrimes>
-struct is_primitive_root {
-  static const bool value = true;
-};
+struct is_primitive_root : true_type {};
 template <int p, int x, int first, int... rest>
 struct is_primitive_root<p, x, seq<first, rest...>> {
   static const bool value = const_pow_mod(x, (p - 1) / first, p) == 1
