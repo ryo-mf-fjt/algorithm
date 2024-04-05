@@ -9,8 +9,8 @@ struct seq {
 // seq の結合
 template <typename, typename>
 struct seq_cat;
-template <int... Is, int... Js>
-struct seq_cat<seq<Is...>, seq<Js...>> : seq<Is..., Js...> {};
+template <int... is, int... js>
+struct seq_cat<seq<is...>, seq<js...>> : seq<is..., js...> {};
 
 // 素因数分解
 template <int n, int i = 2, typename = void>
