@@ -1,6 +1,10 @@
 #include "base.hpp"
 #include "pow.hpp"
 
+ll reg_mod(ll x, ll mod) {
+  return x >= 0 ? x % mod : (-((-x) % mod) + mod) % mod;
+}
+
 template <ll mod>
 class Mod {
  public:
@@ -8,8 +12,7 @@ class Mod {
 
  public:
   inline Mod() : val(0) {}
-  inline Mod(ll val)
-      : val(val >= 0 ? val % mod : (-(-val) % mod + mod) % mod) {}
+  inline Mod(ll val) : val(reg_mod(val, mod)) {}
 
   inline Mod operator+(const Mod &x) const { return Mod(this->val + x.val); }
   inline Mod operator-(const Mod &x) const {
