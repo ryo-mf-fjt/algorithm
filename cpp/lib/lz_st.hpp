@@ -16,11 +16,11 @@ class LzSt {
   using Apply = function<T(const Op&, const T&)>;
 
  public:
-  T bottom;
-  Comp comp;
-  Op noop;
-  OpComp op_comp;
-  Apply apply;
+  const T bottom;
+  const Comp comp;
+  const Op noop;
+  const OpComp op_comp;
+  const Apply apply;
 
  public:
   T st[_N * 2 - 1];

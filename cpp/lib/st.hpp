@@ -14,8 +14,8 @@ class St {
   using Comp = function<T(const T&, const T&)>;
 
  public:
-  T bottom;
-  Comp comp;
+  const T bottom;
+  const Comp comp;
 
  public:
   T st[_N * 2 - 1];
