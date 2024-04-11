@@ -40,3 +40,45 @@ class StBeats : public LzSt<T, Op, N> {
                           operate(a, b, z, k * 2 + 2, (l + r) / 2, r));
   }
 };
+
+template <typename T, typename Sum>
+struct ChminStNode {
+  T max;
+  T max2;
+  int max_cnt;
+  Sum sum;
+};
+
+template <typename T, typename Sum, int N>
+class ChminSt : public StBeats<ChminStNode<T, Sum>, T, N> {
+  // inf <= * <= sup
+  ChminSt(T inf, T sup)
+      : StBeats<ChminStNode<T, Sum>, T, N>(
+            ChminStNode<T, Sum>{inf, inf, 0, 0},
+            [](const ChminStNode<T, Sum>& a, const ChminStNode<T, Sum>& b) {
+              return ChminStNode<T, Sum>{
+                  max(a.max, b.max),
+                  a.max > b.max   ? max(b.max, a.max2)
+                  : a.max < b.max ? max(a.max, b.max2)
+                                  : max(a.max2, b.max2),
+                  a.max > b.max   ? a.max_cnt
+                  : a.max < b.max ? b.max_cnt
+                                  : a.max_cnt + b.max_cnt,
+                  a.sum + b.sum,
+              };
+            },
+            sup, [](const T& a, const T& b) { return min(a, b); },
+            [](const T& z, const ChminStNode<T, Sum>& v) {
+              if (z >= v.max) {
+                return v;
+              }
+              return ChminStNode<T, Sum>{
+                  z,
+                  v.max2,
+                  v.max_cnt,
+                  v.sum - (Sum(v.max) - Sum(z)) * Sum(v.max_cnt),
+              };
+            },
+            [](const T& z, const ChminStNode<T, Sum>& v) { return z > v.max2; },
+            ChminStNode<T, Sum>{sup, inf, 1, sup}) {}
+};
