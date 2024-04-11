@@ -102,7 +102,7 @@ class LzSt {
     return x;
   }
 
- private:
+ protected:
   void propagate(int k) {
     st[k] = apply(op[k], st[k]);
     if (k < _N - 1) {
@@ -112,6 +112,7 @@ class LzSt {
     op[k] = noop;
   }
 
+ private:
   template <typename It>
   T _init(It first, It last, int k = 0, int l = 0, int r = _N) {
     if (r - l == 1) {
@@ -174,7 +175,7 @@ class CntLzSt {
   inline T query(int a, int b) { return lz_st.query(a, b).first; }
 
   inline vector<T> debug(int n) {
-    auto x = lz_st.debug();
+    auto x = lz_st.debug(n);
     vector<T> y;
     transform(x.begin(), x.end(), back_inserter(y),
               [](const P& v) { return v.first; });
