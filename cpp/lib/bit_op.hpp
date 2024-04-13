@@ -16,11 +16,11 @@ const ull alt_mask_ull_8 = alt_mask_ull_of(8);
 const ull alt_mask_ull_16 = alt_mask_ull_of(16);
 const ull alt_mask_ull_32 = alt_mask_ull_of(32);
 
-const uint alt_mask_1 = alt_mask_ull_1;
-const uint alt_mask_2 = alt_mask_ull_2;
-const uint alt_mask_4 = alt_mask_ull_4;
-const uint alt_mask_8 = alt_mask_ull_8;
-const uint alt_mask_16 = alt_mask_ull_16;
+const uint alt_mask_1 = uint(alt_mask_ull_1);
+const uint alt_mask_2 = uint(alt_mask_ull_2);
+const uint alt_mask_4 = uint(alt_mask_ull_4);
+const uint alt_mask_8 = uint(alt_mask_ull_8);
+const uint alt_mask_16 = uint(alt_mask_ull_16);
 
 template <typename T>
 constexpr enable_if_t<sizeof(T) == 4, int> bit_popcount(T v) {
