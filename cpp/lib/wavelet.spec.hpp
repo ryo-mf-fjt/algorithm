@@ -33,3 +33,10 @@ TEST(Wavelet, nth_smallest) {
   Wavelet<int, 12, 3> wavelet(x.begin(), x.end());
   EXPECT_EQ(wavelet.nth_smallest(1, 11, 7), 5);
 }
+
+TEST(Wavelet, range_count) {
+  vector<int> x = {5, 4, 5, 5, 2, 1, 5, 6, 1, 3, 5, 0};
+  Wavelet<int, 12, 3> wavelet(x.begin(), x.end());
+  EXPECT_EQ(wavelet.range_count(1, 11, 5, 6), 4);
+  EXPECT_EQ(wavelet.range_count(1, 11, 2, 5), 3);
+}
