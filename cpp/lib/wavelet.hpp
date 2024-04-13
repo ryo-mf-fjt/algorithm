@@ -19,7 +19,7 @@ class Wavelet {
 
   void init() {
     n = N;
-    rep(i, B) { bit[i].init(); }
+    rep(k, B) { bit[k].init(); }
   }
   template <typename It>
   void init(It first, It last) {
@@ -28,38 +28,73 @@ class Wavelet {
     vector<T> x(n);
     copy(first, last, x.begin());
 
-    for (int i = B - 1; i >= 0; --i) {
+    for (int k = B - 1; k >= 0; --k) {
       vector<int> b(n);
-      rep(j, n) { b[j] = (x[j] >> i) & 1; }
+      rep(i, n) { b[i] = (x[i] >> k) & 1; }
 
-      bit[i].init(b.begin(), b.end());
+      bit[k].init(b.begin(), b.end());
 
       vector<T> _x;
-      rep(j, n) {
-        if (!b[j]) {
-          _x.push_back(x[j]);
+      rep(i, n) {
+        if (!b[i]) {
+          _x.push_back(x[i]);
         }
       }
-      rep(j, n) {
-        if (b[j]) {
-          _x.push_back(x[j]);
+      rep(i, n) {
+        if (b[i]) {
+          _x.push_back(x[i]);
         }
       }
       x = _x;
     }
   }
 
-  T get(int k) {
+  T get(int i) {
     T s = 0;
-    for (int i = B - 1; i >= 0; --i) {
-      int b = bit[i].get(k);
+    for (int k = B - 1; k >= 0; --k) {
+      int b = bit[k].get(i);
       if (b) {
-        s += T(1) << i;
+        s += T(1) << k;
       }
       if (b) {
-        k = n - bit[i].sum(n) + bit[i].sum(k);
+        i = n - bit[k].sum(n) + bit[k].sum(i);
       } else {
-        k = k - bit[i].sum(k);
+        i = i - bit[k].sum(i);
+      }
+    }
+    return s;
+  }
+
+  // i から j - 1 での v の出現回数
+  int count(int i, int j, int v) {
+    pair<int, int> p = range(i, j, v);
+    return p.second - p.first;
+  }
+
+  // _n 番目の v の位置
+  int nth(int v, int _n) {
+    int i = range(0, n, v).first + _n;
+    rep(k, B) {
+      int b = (v >> k) & 1;
+      int p = i - (b ? n - bit[k].sum(n) : 0);
+      i = bit_nth(bit[k], b, p);
+    }
+    return i;
+  }
+
+  // i から j - 1 で _n 番目に小さい値
+  T nth_smallest(int i, int j, int _n) {
+    T s = 0;
+    for (int k = B - 1; k >= 0; --k) {
+      int z = j - i - (bit[k].sum(j) - bit[k].sum(i));
+      if (_n >= z) {
+        i = n - bit[k].sum(n) + bit[k].sum(i);
+        j = n - bit[k].sum(n) + bit[k].sum(j);
+        _n -= z;
+        s += 1 << k;
+      } else {
+        i = i - bit[k].sum(i);
+        j = j - bit[k].sum(j);
       }
     }
     return s;
@@ -69,5 +104,36 @@ class Wavelet {
     vector<int> x(n);
     rep(i, n) { x[i] = get(i); }
     return x;
+  }
+
+ private:
+  // bit での _n 番目の v の位置
+  int bit_nth(Bit& bit, int b, int _n) {
+    int l = 0, r = n;
+    while (r - l > 1) {
+      int m = (l + r) / 2;
+      int c = b ? bit.sum(m) : m - bit.sum(m);
+      if (c <= _n) {
+        l = m;
+      } else {
+        r = m;
+      }
+    }
+    return l;
+  }
+
+  // i から j - 1 での v がソート終了時に出現する範囲
+  pair<int, int> range(int i, int j, int v) {
+    for (int k = B - 1; k >= 0; --k) {
+      int b = (v >> k) & 1;
+      if (b) {
+        i = n - bit[k].sum(n) + bit[k].sum(i);
+        j = n - bit[k].sum(n) + bit[k].sum(j);
+      } else {
+        i = i - bit[k].sum(i);
+        j = j - bit[k].sum(j);
+      }
+    }
+    return make_pair(i, j);
   }
 };
