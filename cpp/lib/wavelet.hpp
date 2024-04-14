@@ -49,7 +49,7 @@ class Wavelet {
     rep(k, B) {
       int b = (v >> k) & 1;
       int p = i - (b ? n - bit[k].sum(n) : 0);
-      i = bit_nth(bit[k], b, p);
+      i = bit_nth(bit[k], n, b, p);
     }
     return i;
   }
@@ -113,8 +113,8 @@ class Wavelet {
   }
 
  private:
-  // bit での _n 番目の v の位置
-  int bit_nth(Bit& bit, int b, int _n) {
+  // bit での _n 番目の b の位置
+  static int bit_nth(Bit& bit, int n, int b, int _n) {
     int l = 0, r = n;
     while (r - l > 1) {
       int m = (l + r) / 2;
