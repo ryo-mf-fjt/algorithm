@@ -66,13 +66,13 @@ class Wavelet {
   }
 
   // i から j - 1 での v の出現回数
-  int count(int i, int j, int v) {
+  int count(int i, int j, const T& v) {
     pair<int, int> p = sorted_range(i, j, v);
     return p.second - p.first;
   }
 
   // _n 番目の v の位置
-  int nth(int v, int _n) {
+  int nth(const T& v, int _n) {
     int i = sorted_range(0, n, v).first + _n;
     rep(k, B) {
       int b = (v >> k) & 1;
@@ -101,9 +101,9 @@ class Wavelet {
   }
 
   // i から j - 1 での [a, b) の出現回数
-  enable_if_t<(MAX_V < MAX_V + 1), int> range_count(int i, int j, int a, int b,
-                                                    int k = B - 1, int l = 0,
-                                                    int r = T(1) << B) {
+  enable_if_t<(MAX_V < MAX_V + 1), int> range_count(int i, int j, T a, T b,
+                                                    int k = B - 1, T l = 0,
+                                                    T r = T(1) << B) {
     if (b <= l || r <= a) {
       return 0;
     }
@@ -117,8 +117,26 @@ class Wavelet {
                        (l + r) / 2);
   }
 
+  // i から j - 1 で v の直後の値
+  T next_value(int i, int j, T v) {
+    int c = range_count(i, j, 0, v + 1);
+    if (c == j - i) {
+      return MAX_V + 1;
+    }
+    return nth_smallest(i, j, c);
+  }
+
+  // i から j - 1 で v の直前の値
+  T prev_value(int i, int j, T v) {
+    int c = range_count(i, j, 0, v);
+    if (c == 0) {
+      return -1;
+    }
+    return nth_smallest(i, j, c - 1);
+  }
+
   vector<T> debug() {
-    vector<int> x(n);
+    vector<T> x(n);
     rep(i, n) { x[i] = get(i); }
     return x;
   }
@@ -140,7 +158,7 @@ class Wavelet {
   }
 
   // i から j - 1 での v がソート終了時に出現する範囲
-  pair<int, int> sorted_range(int i, int j, int v) {
+  pair<int, int> sorted_range(int i, int j, T v) {
     for (int k = B - 1; k >= 0; --k) {
       int b = (v >> k) & 1;
       if (b) {

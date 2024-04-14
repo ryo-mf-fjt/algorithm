@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
 #include "bit.hpp"
-#include "debug.hpp"
 #include "wavelet.hpp"
 
 TEST(Wavelet, get) {
@@ -39,4 +38,18 @@ TEST(Wavelet, range_count) {
   Wavelet<int, 12, 3> wavelet(x.begin(), x.end());
   EXPECT_EQ(wavelet.range_count(1, 11, 5, 6), 4);
   EXPECT_EQ(wavelet.range_count(1, 11, 2, 5), 3);
+}
+
+TEST(Wavelet, next_value) {
+  vector<int> x = {5, 4, 5, 5, 2, 1, 5, 6, 1, 3, 5, 0};
+  Wavelet<int, 12, 3> wavelet(x.begin(), x.end());
+  EXPECT_EQ(wavelet.next_value(1, 11, 2), 3);
+  EXPECT_EQ(wavelet.next_value(0, 4, 0), 4);
+}
+
+TEST(Wavelet, prev_value) {
+  vector<int> x = {5, 4, 5, 5, 2, 1, 5, 6, 1, 3, 5, 0};
+  Wavelet<int, 12, 3> wavelet(x.begin(), x.end());
+  EXPECT_EQ(wavelet.prev_value(1, 11, 5), 4);
+  EXPECT_EQ(wavelet.prev_value(0, 4, 7), 5);
 }
