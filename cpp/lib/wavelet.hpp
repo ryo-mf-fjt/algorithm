@@ -1,38 +1,5 @@
 #include "base.hpp"
 #include "bit_vec.hpp"
-#include "lz_st.hpp"
-
-// template <int N, typename Unknown>
-// class DynamicBitVec {
-//  public:
-//   Unknown unknown;
-
-//  public:
-//   DynamicBitVec()
-//       : st(
-//             0, [](int a, int b) { return a + b; }, 0,
-//             [](int a, int b) { return a + b; },
-//             [](int z, int v, int c) { return z * c + v; }) {}
-
-//   template <typename It>
-//   void init(It first, It last) {
-//     int n = last - first;
-//     vector<int> s(n + 1);
-//     s[0] = 0;
-//     for (int i = 1; i <= n; ++i) {
-//       s[i] = s[i - 1] + first[i - 1];
-//     }
-//     st.init(s.begin(), s.end());
-//   }
-
-//   int sum(int i) { return st.get(i); }
-
-//   // 以下は動的にするための実装
-
-//   void update(int i, int v) {}
-
-//   void erase(int i) {}
-// };
 
 template <int N, int B, typename BitVec = BitVec<N>>
 class Wavelet {
@@ -139,19 +106,6 @@ class Wavelet {
     return nth_smallest(i, j, c - 1);
   }
 
-  void insert(int i, int v) {
-    // TODO: 実装
-  }
-
-  void erase(int i) {
-    // TODO: 実装
-  }
-
-  void update(int i, int v) {
-    erase(i);
-    insert(i, v);
-  }
-
   vector<int> debug() {
     vector<int> x(n);
     rep(i, n) { x[i] = get(i); }
@@ -174,5 +128,3 @@ class Wavelet {
     return l;
   }
 };
-
-// TODO: 座標圧縮版
