@@ -151,8 +151,8 @@ class CntLzSt {
               return P(comp(a.first, b.first), a.second + b.second);
             },
             noop, op_comp,
-            [=](const Op& z, const P& a) {
-              return P(apply(z, a.first, a.second), a.second);
+            [=](const Op& z, const P& v) {
+              return P(apply(z, v.first, v.second), v.second);
             },
             P(v, 1)) {}
 

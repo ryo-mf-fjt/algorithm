@@ -12,16 +12,11 @@ class BitVec {
   int acc[L + 1];
 
  public:
-  BitVec() { init(); }
-  template <typename It>
-  BitVec(It first, It last) {
-    init(first, last);
-  }
-
-  void init() {
+  BitVec() {
     fill_n(bit, M, 0);
     fill_n(acc, L + 1, 0);
   }
+
   template <typename It>
   void init(It first, It last) {
     fill_n(bit, M, 0);
@@ -39,14 +34,9 @@ class BitVec {
     return acc[i / 64] + bit_popcount(bit[i / 64] & ((ull(1) << i % 64) - 1));
   }
 
-  // i から j - 1 までの和
-  int sum(int i, int j) { return sum(j) - sum(i); }
-
-  int get(int i) { return (bit[i / 64] >> i % 64) & 1; }
-
   vector<int> debug(int n) {
     vector<int> x(n);
-    rep(i, n) { x[i] = get(i); }
+    rep(i, n) { x[i] = sum(i + 1) - sum(i); }
     return x;
   }
 };
