@@ -20,35 +20,12 @@ TEST(ImplicitTreap, insert) {
 }
 
 TEST(ImplicitTreap, erase) {
-  ImplicitTreap<5> t;
-  int a = t.insert(0);
-  int b = t.insert(1);
-  int c = t.insert(2);
-  int d = t.insert(3);
-  int e = t.insert(4);
-
+  ImplicitTreap<5> t(5);
   t.erase(2);
-
-  EXPECT_EQ(a, 0);
-  EXPECT_EQ(b, 1);
-  EXPECT_EQ(c, 2);
-  EXPECT_EQ(d, 3);
-  EXPECT_EQ(e, 4);
-  EXPECT_EQ(t.debug(), vector<int>({a, b, d, e}));
+  EXPECT_EQ(t.debug(), vector<int>({0, 1, 3, 4}));
 }
 
 TEST(ImplicitTreap, get) {
-  ImplicitTreap<5> t;
-  int a = t.insert(0);
-  int b = t.insert(1);
-  int c = t.insert(2);
-  int d = t.insert(3);
-  int e = t.insert(4);
-
-  EXPECT_EQ(a, 0);
-  EXPECT_EQ(b, 1);
-  EXPECT_EQ(c, 2);
-  EXPECT_EQ(d, 3);
-  EXPECT_EQ(e, 4);
-  EXPECT_EQ(t.get(2), c);
+  ImplicitTreap<5> t(5);
+  EXPECT_EQ(t.get(2), 2);
 }

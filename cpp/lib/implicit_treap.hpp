@@ -15,13 +15,23 @@ class ImplicitTreap {
   int root;
 
  public:
-  ImplicitTreap() : new_i(0), root(-1) {
+  ImplicitTreap() { init(); }
+  ImplicitTreap(int n) { init(n); }
+
+  void init() {
     fill_n(l, N, -1);
     fill_n(r, N, -1);
     random_device seed_gen;
     mt19937 engine(seed_gen());
     rep(i, N) { priority[i] = engine(); }
     fill_n(size, N, 1);
+    new_i = 0;
+    root = -1;
+  }
+  void init(int n) {
+    init();
+    _init(0, n, root);
+    new_i = n;
   }
 
   int insert(int i) {
@@ -58,6 +68,17 @@ class ImplicitTreap {
   }
 
  private:
+  void _init(int i, int j, int& t) {
+    if (i == j) {
+      t = -1;
+      return;
+    }
+    t = max_element(priority + i, priority + j) - priority;
+    _init(i, t, l[t]);
+    _init(t + 1, j, r[t]);
+    update_size(t);
+  }
+
   vector<int> _debug(int t) {
     if (t == -1) {
       return {};
