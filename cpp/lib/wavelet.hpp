@@ -8,14 +8,14 @@ class Wavelet {
   BitVec bit[B];
 
  public:
-  Wavelet() : n(N) {}
+  Wavelet() : n(0) {}
   template <typename It>
   Wavelet(It first, It last) {
     init(first, last);
   }
 
   void init() {
-    n = N;
+    n = 0;
     rep(k, B) { bit[k] = BitVec(); }
   }
   template <typename It>
