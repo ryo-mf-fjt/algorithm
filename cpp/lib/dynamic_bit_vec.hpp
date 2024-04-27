@@ -20,4 +20,6 @@ class DynamicBitVec {
   void insert(int i, int v) { st.insert(i, v); }
 
   void erase(int i) { st.erase(i); }
+
+  vector<int> debug() { return st.debug(); }
 };

@@ -112,7 +112,7 @@ class DynamicSt {
     int x, y, z;
     split(root, b, y, z);
     split(y, a, x, y);
-    T r = acc[y];
+    T r = y != -1 ? acc[y] : bottom;
     merge(x, y, root);
     merge(root, z, root);
     return r;

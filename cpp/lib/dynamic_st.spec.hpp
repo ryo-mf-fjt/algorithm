@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include "debug.hpp"
 #include "dynamic_st.hpp"
 
 TEST(DynamicSt, insert) {
@@ -19,4 +20,24 @@ TEST(DynamicSt, erase) {
       0, [](int a, int b) { return a + b; }, 5, 1);
   t.erase(2);
   EXPECT_EQ(t.query(0, 5), 4);
+}
+
+TEST(DynamicSt, random_erase_insert) {
+  const int n = 100;
+  const int q = 1000;
+  DynamicSt<int, n + q> t(
+      0, [](int a, int b) { return a + b; }, n);
+  vector<int> x(n);
+
+  random_device seed_gen;
+  mt19937 engine(seed_gen());
+
+  rep(i, q) {
+    int p = engine() % n;
+    int v = engine();
+    t.erase(p);
+    t.insert(p, v);
+    x[p] = v;
+    EXPECT_EQ(t.debug(), x);
+  }
 }

@@ -1,7 +1,7 @@
 #include "base.hpp"
 #include "bit_vec.hpp"
 
-template <int N, int B, typename BitVec = BitVec<N>>
+template <int B, typename BitVec>
 class Wavelet {
  public:
   int n;
@@ -9,6 +9,7 @@ class Wavelet {
 
  public:
   Wavelet() : n(0) {}
+  Wavelet(int n, int v = 0) { init(n, v); }
   template <typename It>
   Wavelet(It first, It last) {
     init(first, last);
@@ -17,6 +18,10 @@ class Wavelet {
   void init() {
     n = 0;
     rep(k, B) { bit[k] = BitVec(); }
+  }
+  void init(int n, int v = 0) {
+    vector<int> x(n, v);
+    init(x.begin(), x.end());
   }
   template <typename It>
   void init(It first, It last) {
@@ -104,6 +109,35 @@ class Wavelet {
       return -1;
     }
     return nth_smallest(i, j, c - 1);
+  }
+
+  void insert(int i, int v) {
+    ++n;
+    for (int k = B - 1; k >= 0; --k) {
+      int b = (v >> k) & 1;
+      bit[k].insert(i, b);
+      if (b) {
+        i = n - bit[k].sum(n) + bit[k].sum(i);
+      } else {
+        i = i - bit[k].sum(i);
+      }
+    }
+  }
+
+  void erase(int i) {
+    int v = get(i);
+    for (int k = B - 1; k >= 0; --k) {
+      int b = (v >> k) & 1;
+      int p;
+      if (b) {
+        p = n - bit[k].sum(n) + bit[k].sum(i);
+      } else {
+        p = i - bit[k].sum(i);
+      }
+      bit[k].erase(i);
+      i = p;
+    }
+    --n;
   }
 
   vector<int> debug() {
