@@ -2,32 +2,39 @@
 
 #include "sa.hpp"
 
-TEST(csa, normal) {
+TEST(make_csa, normal) {
   char s[] = "abracadabra";
-  EXPECT_EQ(csa(s, 12), vector<int>({11, 10, 7, 0, 3, 5, 8, 1, 4, 6, 9, 2}));
+  EXPECT_EQ(make_csa(s, 12),
+            vector<int>({11, 10, 7, 0, 3, 5, 8, 1, 4, 6, 9, 2}));
 }
 
-TEST(csa, one) {
+TEST(make_csa, one) {
   char s[] = "";
-  EXPECT_EQ(csa(s, 1), vector<int>({0}));
+  EXPECT_EQ(make_csa(s, 1), vector<int>({0}));
 }
 
-TEST(csa, zero) {
+TEST(make_csa, zero) {
   char s[] = {};
-  EXPECT_EQ(csa(s, 0), vector<int>({}));
+  EXPECT_EQ(make_csa(s, 0), vector<int>({}));
 }
 
-TEST(sa, normal) {
+TEST(make_sa, normal) {
   char s[] = "abracadabra";
-  EXPECT_EQ(sa(s, 11), vector<int>({10, 7, 0, 3, 5, 8, 1, 4, 6, 9, 2}));
+  EXPECT_EQ(make_sa(s, 11), vector<int>({10, 7, 0, 3, 5, 8, 1, 4, 6, 9, 2}));
 }
 
-TEST(sa, one) {
+TEST(make_sa, one) {
   char s[] = "a";
-  EXPECT_EQ(sa(s, 1), vector<int>({0}));
+  EXPECT_EQ(make_sa(s, 1), vector<int>({0}));
 }
 
-TEST(sa, zero) {
+TEST(make_sa, zero) {
   char s[] = "";
-  EXPECT_EQ(sa(s, 0), vector<int>({}));
+  EXPECT_EQ(make_sa(s, 0), vector<int>({}));
+}
+
+TEST(make_lcp, normal) {
+  char s[] = "abracadabra";
+  vector<int> sa = make_sa(s, 11);
+  EXPECT_EQ(make_lcp(s, 11, sa), vector<int>({1, 4, 1, 1, 0, 3, 0, 0, 0, 2}));
 }
