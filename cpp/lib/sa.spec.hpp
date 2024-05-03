@@ -2,6 +2,21 @@
 
 #include "sa.hpp"
 
+TEST(csa, normal) {
+  char s[] = "abracadabra";
+  EXPECT_EQ(csa(s, 12), vector<int>({11, 10, 7, 0, 3, 5, 8, 1, 4, 6, 9, 2}));
+}
+
+TEST(csa, one) {
+  char s[] = "";
+  EXPECT_EQ(csa(s, 1), vector<int>({0}));
+}
+
+TEST(csa, zero) {
+  char s[] = {};
+  EXPECT_EQ(csa(s, 0), vector<int>({}));
+}
+
 TEST(sa, normal) {
   char s[] = "abracadabra";
   EXPECT_EQ(sa(s, 11), vector<int>({10, 7, 0, 3, 5, 8, 1, 4, 6, 9, 2}));
