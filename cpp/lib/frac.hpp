@@ -4,7 +4,7 @@
 template <typename T = ll>
 class Frac {
  public:
-  // "a / b" を表す
+  // "a/b" を表す
   T a, b;
 
  public:

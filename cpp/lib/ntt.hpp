@@ -2,6 +2,7 @@
 #include "base_fft.hpp"
 #include "mod.hpp"
 #include "primitive_root.hpp"
+#include "util/pow2_ceil.hpp"
 
 extern const int ntt_mod_p_1 = 998244353;
 extern const int ntt_mod_p_2 = 167772161;
@@ -13,11 +14,6 @@ constexpr int pow2_divisor(int x, int n) {
 
 template <int mod_p = ntt_mod_p_1>
 class NTT {
- private:
-  constexpr static int pow2_ceil(int n, int _n = 1) {
-    return n <= _n ? _n : pow2_ceil(n, _n * 2);
-  }
-
  public:
   constexpr static int MAX_N = pow2_divisor(mod_p - 1, 1);
   using Mod = Mod<mod_p>;

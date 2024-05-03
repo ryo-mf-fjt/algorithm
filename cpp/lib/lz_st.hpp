@@ -1,14 +1,10 @@
 #include <functional>
 
 #include "base.hpp"
+#include "util/pow2_ceil.hpp"
 
 template <typename T, typename Op, int N>
 class LzSt {
- private:
-  constexpr static int pow2_ceil(int n, int _n) {
-    return n <= _n ? _n : pow2_ceil(n, _n * 2);
-  }
-
  public:
   constexpr static const int _N = pow2_ceil(N, 1);
   using Comp = function<T(const T&, const T&)>;

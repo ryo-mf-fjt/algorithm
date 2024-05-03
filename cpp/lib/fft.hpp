@@ -2,14 +2,10 @@
 
 #include "base.hpp"
 #include "base_fft.hpp"
+#include "util/pow2_ceil.hpp"
 
 template <typename D = double>
 class FFT {
- private:
-  constexpr static int pow2_ceil(int n, int _n = 1) {
-    return n <= _n ? _n : pow2_ceil(n, _n * 2);
-  }
-
  public:
   using C = complex<D>;
   using V = vector<C>;

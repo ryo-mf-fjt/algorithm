@@ -1,6 +1,7 @@
 #include <functional>
 
 #include "base.hpp"
+#include "util/graph_to.hpp"
 
 // E は int または to を持つ構造体
 template <typename S, typename E>
@@ -35,21 +36,21 @@ class CentroidSolver {
 
     // u への辺を消す
     for (auto& e : t[u]) {
-      int v = to(e);
+      int v = graph_to(e);
       auto it = find_if(t[v].begin(), t[v].end(),
-                        [&](const E& x) { return to(x) == u; });
+                        [&](const E& x) { return graph_to(x) == u; });
       detached[v] = *it;
       t[v].erase(it);
     }
 
     for (auto& e : t[u]) {
-      int v = to(e);
+      int v = graph_to(e);
       s[v] = solve(v);
     }
 
     // u への辺を戻す
     for (auto& e : t[u]) {
-      int v = to(e);
+      int v = graph_to(e);
       t[v].push_back(detached[v]);
     }
 
@@ -57,16 +58,10 @@ class CentroidSolver {
   }
 
  private:
-  template <typename _E>
-  static int to(const _E& e) {
-    return e.to;
-  }
-  static int to(int e) { return e; }
-
   int calculate_subtree_size(int u, int p = -1) {
     int c = 1;
     for (auto& e : t[u]) {
-      int v = to(e);
+      int v = graph_to(e);
       if (v != p) {
         c += calculate_subtree_size(v, u);
       }
@@ -81,7 +76,7 @@ class CentroidSolver {
     // u を削除した時の部分木のサイズの最大
     int m = n - subtree_size[u];
     for (auto& e : t[u]) {
-      int v = to(e);
+      int v = graph_to(e);
       if (v != p) {
         m = max(m, subtree_size[v]);
       }
@@ -89,7 +84,7 @@ class CentroidSolver {
 
     pair<int, int> x(m, u);
     for (auto& e : t[u]) {
-      int v = to(e);
+      int v = graph_to(e);
       if (v != p) {
         x = min(x, search_centroid(n, v, u));
       }
