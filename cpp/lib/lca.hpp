@@ -24,7 +24,7 @@ class LCA {
     st.init(euler_tour, euler_tour + 2 * n - 1);
   }
 
-  int lca(int i, int j) {
+  int lca(int i, int j) const {
     int a = first_index[i];
     int b = first_index[j];
     return st.query(min(a, b), max(a, b) + 1).second;

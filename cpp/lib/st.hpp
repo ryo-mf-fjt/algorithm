@@ -50,7 +50,7 @@ class St {
     }
   }
 
-  T query(int a, int b, int k = 0, int l = 0, int r = _N) {
+  T query(int a, int b, int k = 0, int l = 0, int r = _N) const {
     if (b <= l || r <= a) {
       return bottom;
     }
