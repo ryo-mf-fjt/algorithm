@@ -47,8 +47,8 @@ class FFT {
   }
 
   // 結果の長さは |x| + |y| - 1
-  template <typename It>
-  static V conv(It x_first, It x_last, It y_first, It y_last) {
+  template <typename XIt, typename YIt>
+  static V conv(XIt x_first, XIt x_last, YIt y_first, YIt y_last) {
     int n = (x_last - x_first) + (y_last - y_first) - 1;
     int _fft_n = pow2_ceil(n);
     V a = t(x_first, x_last, _fft_n);
