@@ -15,12 +15,11 @@ class Mod {
   inline Mod(ll val) : val(reg_mod(val, mod)) {}
 
   inline Mod operator+(const Mod &x) const { return Mod(this->val + x.val); }
-  inline Mod operator-(const Mod &x) const {
-    return Mod(this->val - x.val + mod);
-  }
+  inline Mod operator-(const Mod &x) const { return Mod(this->val - x.val); }
   inline Mod operator*(const Mod &x) const { return Mod(this->val * x.val); }
   // mod は素数
   inline Mod operator/(const Mod &x) const { return *this * b_pow(x, mod - 2); }
+  inline Mod operator-() const { return Mod(-this->val); }
 
   inline Mod &operator+=(const Mod &x) {
     this->val = (this->val + x.val) % mod;
