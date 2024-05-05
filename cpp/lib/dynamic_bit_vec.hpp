@@ -7,7 +7,7 @@ class DynamicBitVec {
   DynamicSt<int, N> st;
 
  public:
-  DynamicBitVec() : st(0, [](int a, int b) { return a + b; }) {}
+  DynamicBitVec() : st(0, plus<int>()) {}
 
   template <typename It>
   void init(It first, It last) {

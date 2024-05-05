@@ -67,7 +67,7 @@ class ChminSt : public StBeats<ChminStNode<T, Sum>, T, N> {
                   a.sum + b.sum,
               };
             },
-            sup, [](const T& a, const T& b) { return min(a, b); },
+            sup, min<T>,
             [](const T& z, const ChminStNode<T, Sum>& v) {
               if (z >= v.max) {
                 return v;

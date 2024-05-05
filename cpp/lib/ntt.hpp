@@ -68,14 +68,18 @@ class NTT {
   }
 
   // x の長さ + y の長さ - 1 <= MAX_N
+  // 結果の長さは |x| + |y| - 1
   template <typename It>
   static V conv(It x_first, It x_last, It y_first, It y_last) {
-    int _ntt_n = pow2_ceil((x_last - x_first) + (y_last - y_first) - 1);
+    int n = (x_last - x_first) + (y_last - y_first) - 1;
+    int _ntt_n = pow2_ceil(n);
     V a = t(x_first, x_last, _ntt_n);
     V b = t(y_first, y_last, _ntt_n);
     V c(_ntt_n);
     rep(i, _ntt_n) { c[i] = a[i] * b[i]; }
-    return inv_t(c.begin(), c.end(), _ntt_n);
+    V x = inv_t(c.begin(), c.end(), _ntt_n);
+    x.erase(x.begin() + n, x.end());
+    return x;
   }
   template <typename T, typename U>
   static V conv(const vector<T>& x, const vector<U>& y) {

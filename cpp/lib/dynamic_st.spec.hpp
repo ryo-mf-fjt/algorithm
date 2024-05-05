@@ -4,7 +4,7 @@
 #include "dynamic_st.hpp"
 
 TEST(DynamicSt, insert) {
-  DynamicSt<int, 5> t(0, [](int a, int b) { return a + b; });
+  DynamicSt<int, 5> t(0, plus<int>());
 
   t.insert(0, 0);
   t.insert(1, 1);
@@ -16,8 +16,7 @@ TEST(DynamicSt, insert) {
 }
 
 TEST(DynamicSt, erase) {
-  DynamicSt<int, 5> t(
-      0, [](int a, int b) { return a + b; }, 5, 1);
+  DynamicSt<int, 5> t(0, plus<int>(), 5, 1);
   t.erase(2);
   EXPECT_EQ(t.query(0, 5), 4);
 }
@@ -25,8 +24,7 @@ TEST(DynamicSt, erase) {
 TEST(DynamicSt, random_erase_insert) {
   const int n = 100;
   const int q = 1000;
-  DynamicSt<int, n + q> t(
-      0, [](int a, int b) { return a + b; }, n);
+  DynamicSt<int, n + q> t(0, plus<int>(), n);
   vector<int> x(n);
 
   random_device seed_gen;
