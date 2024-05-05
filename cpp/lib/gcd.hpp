@@ -1,4 +1,5 @@
 #include "base.hpp"
+#include "mod.hpp"
 
 template <typename T>
 T gcd(const T& a, const T& b) {
@@ -20,4 +21,15 @@ T gcd_ex(const T& a, const T& b, T& x, T& y) {
   x = y;
   y = tx - (a / b) * y;
   return g;
+}
+
+template <typename T>
+T inv_mod_m(const T& x, const T& mod) {
+  T p, q;
+  gcd_ex(x, mod, p, q);
+  return reg_mod(p, mod);
+}
+template <ll mod>
+Mod<mod> inv_mod_m(const Mod<mod>& x) {
+  return inv_mod_m(x.val, mod);
 }
