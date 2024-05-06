@@ -36,8 +36,7 @@ class NTT {
       ep[i] = ep[i - 1] * e;
     }
     V y(_ntt_n);
-    V tmp(_ntt_n);
-    base_fft_t(x.data(), _ntt_n, y.data(), ep, tmp.data());
+    base_fft_t(x.data(), _ntt_n, y.data(), ep);
     return y;
   }
   template <typename T>
@@ -57,8 +56,7 @@ class NTT {
       ep[i] = ep[i - 1] * e;
     }
     V y(_ntt_n);
-    V tmp(_ntt_n);
-    base_fft_t(x.data(), _ntt_n, y.data(), ep, tmp.data());
+    base_fft_t(x.data(), _ntt_n, y.data(), ep);
     rep(i, _ntt_n) { y[i] /= _ntt_n; }
     return y;
   }

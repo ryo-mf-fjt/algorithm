@@ -19,8 +19,7 @@ class FFT {
     V ep(_fft_n);
     rep(i, _fft_n) { ep[i] = polar(1.0, 2 * M_PI / _fft_n * i); }
     V y(_fft_n);
-    V tmp(_fft_n);
-    base_fft_t(x.data(), _fft_n, y.data(), ep, tmp.data());
+    base_fft_t(x.data(), _fft_n, y.data(), ep);
     return y;
   }
   template <typename T>
@@ -36,8 +35,7 @@ class FFT {
     V ep(_fft_n);
     rep(i, _fft_n) { ep[i] = polar(1.0, -2 * M_PI / _fft_n * i); }
     V y(_fft_n);
-    V tmp(_fft_n);
-    base_fft_t(x.data(), _fft_n, y.data(), ep, tmp.data());
+    base_fft_t(x.data(), _fft_n, y.data(), ep);
     rep(i, _fft_n) { y[i] /= _fft_n; }
     return y;
   }
