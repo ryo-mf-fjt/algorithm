@@ -23,7 +23,7 @@ const uint alt_mask_8 = uint(ull_alt_mask_8);
 const uint alt_mask_16 = uint(ull_alt_mask_16);
 
 template <typename T>
-constexpr enable_if_t<sizeof(T) == 4, int> bit_popcount(T v) {
+constexpr inline enable_if_t<sizeof(T) == 4, int> bit_popcount(T v) {
   v = (v & alt_mask_1) + (v >> 1 & alt_mask_1);
   v = (v & alt_mask_2) + (v >> 2 & alt_mask_2);
   v = (v & alt_mask_4) + (v >> 4 & alt_mask_4);
@@ -32,7 +32,7 @@ constexpr enable_if_t<sizeof(T) == 4, int> bit_popcount(T v) {
   return v;
 }
 template <typename T>
-constexpr enable_if_t<sizeof(T) == 8, int> bit_popcount(T v) {
+constexpr inline enable_if_t<sizeof(T) == 8, int> bit_popcount(T v) {
   v = (v & ull_alt_mask_1) + (v >> 1 & ull_alt_mask_1);
   v = (v & ull_alt_mask_2) + (v >> 2 & ull_alt_mask_2);
   v = (v & ull_alt_mask_4) + (v >> 4 & ull_alt_mask_4);
@@ -43,7 +43,7 @@ constexpr enable_if_t<sizeof(T) == 8, int> bit_popcount(T v) {
 }
 
 template <typename T>
-constexpr enable_if_t<sizeof(T) == 4, T> bit_msb(T v) {
+constexpr inline enable_if_t<sizeof(T) == 4, T> bit_msb(T v) {
   v |= v >> 1;
   v |= v >> 2;
   v |= v >> 4;
@@ -52,7 +52,7 @@ constexpr enable_if_t<sizeof(T) == 4, T> bit_msb(T v) {
   return v ^ (v >> 1);
 }
 template <typename T>
-constexpr enable_if_t<sizeof(T) == 8, T> bit_msb(T v) {
+constexpr inline enable_if_t<sizeof(T) == 8, T> bit_msb(T v) {
   v |= v >> 1;
   v |= v >> 2;
   v |= v >> 4;
@@ -60,4 +60,24 @@ constexpr enable_if_t<sizeof(T) == 8, T> bit_msb(T v) {
   v |= v >> 16;
   v |= v >> 32;
   return v ^ (v >> 1);
+}
+
+template <typename T>
+constexpr inline enable_if_t<sizeof(T) == 4, int> bit_reverse(T v) {
+  v = (v & alt_mask_1) << 1 | (v >> 1 & alt_mask_1);
+  v = (v & alt_mask_2) << 2 | (v >> 2 & alt_mask_2);
+  v = (v & alt_mask_4) << 4 | (v >> 4 & alt_mask_4);
+  v = (v & alt_mask_8) << 8 | (v >> 8 & alt_mask_8);
+  v = (v & alt_mask_16) << 16 | (v >> 16 & alt_mask_16);
+  return v;
+}
+template <typename T>
+constexpr inline enable_if_t<sizeof(T) == 8, int> bit_reverse(T v) {
+  v = (v & ull_alt_mask_1) << 1 | (v >> 1 & ull_alt_mask_1);
+  v = (v & ull_alt_mask_2) << 2 | (v >> 2 & ull_alt_mask_2);
+  v = (v & ull_alt_mask_4) << 4 | (v >> 4 & ull_alt_mask_4);
+  v = (v & ull_alt_mask_8) << 8 | (v >> 8 & ull_alt_mask_8);
+  v = (v & ull_alt_mask_16) << 16 | (v >> 16 & ull_alt_mask_16);
+  v = (v & ull_alt_mask_32) << 32 | (v >> 32 & ull_alt_mask_32);
+  return v;
 }

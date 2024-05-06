@@ -35,9 +35,8 @@ class NTT {
     for (int i = 1; i < _ntt_n; ++i) {
       ep[i] = ep[i - 1] * e;
     }
-    V y(_ntt_n);
-    base_fft_t(x.data(), _ntt_n, y.data(), ep);
-    return y;
+    base_fft_t(x.data(), _ntt_n, ep);
+    return x;
   }
   template <typename T>
   static V t(const vector<T>& x, int ntt_n) {
@@ -55,10 +54,9 @@ class NTT {
     for (int i = 1; i < _ntt_n; ++i) {
       ep[i] = ep[i - 1] * e;
     }
-    V y(_ntt_n);
-    base_fft_t(x.data(), _ntt_n, y.data(), ep);
-    rep(i, _ntt_n) { y[i] /= _ntt_n; }
-    return y;
+    base_fft_t(x.data(), _ntt_n, ep);
+    rep(i, _ntt_n) { x[i] /= _ntt_n; }
+    return x;
   }
   template <typename T>
   static V inv_t(const vector<T>& x, int ntt_n) {

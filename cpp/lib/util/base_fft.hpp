@@ -1,10 +1,9 @@
 #include "../base.hpp"
+#include "../bit_op.hpp"
 
 template <typename T>
-void base_fft_t(T x[], int n, T result[], const vector<T>& ep,
-                int result_step = 1) {
+void _base_fft_t(T x[], int n, const vector<T>& ep) {
   if (n == 1) {
-    result[0] = x[0];
     return;
   }
   int hn = n >> 1;
@@ -16,6 +15,26 @@ void base_fft_t(T x[], int n, T result[], const vector<T>& ep,
     x[i] = a + b;
     x[j] = a * ep[d * i] + b * ep[d * j];
   }
-  base_fft_t(x, hn, result, ep, result_step << 1);
-  base_fft_t(x + hn, hn, result + result_step, ep, result_step << 1);
+  _base_fft_t(x, hn, ep);
+  _base_fft_t(x + hn, hn, ep);
+}
+
+template <typename T>
+void index_bit_reverse(T x[], int k) {
+  rep(i, 1 << k) {
+    int j = (bit_reverse(i) >> (32 - k)) & ((1 << k) - 1);
+    if (i < j) {
+      swap(x[i], x[j]);
+    }
+  }
+}
+
+template <typename T>
+void base_fft_t(T x[], int n, const vector<T>& ep) {
+  _base_fft_t(x, n, ep);
+  int k = 0;
+  while ((1 << k) < n) {
+    ++k;
+  }
+  index_bit_reverse(x, k);
 }

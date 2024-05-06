@@ -18,9 +18,8 @@ class FFT {
     copy(first, last, x.begin());
     V ep(_fft_n);
     rep(i, _fft_n) { ep[i] = polar(1.0, 2 * M_PI / _fft_n * i); }
-    V y(_fft_n);
-    base_fft_t(x.data(), _fft_n, y.data(), ep);
-    return y;
+    base_fft_t(x.data(), _fft_n, ep);
+    return x;
   }
   template <typename T>
   static V t(const vector<T>& x, int fft_n) {
@@ -34,10 +33,9 @@ class FFT {
     copy(first, last, x.begin());
     V ep(_fft_n);
     rep(i, _fft_n) { ep[i] = polar(1.0, -2 * M_PI / _fft_n * i); }
-    V y(_fft_n);
-    base_fft_t(x.data(), _fft_n, y.data(), ep);
-    rep(i, _fft_n) { y[i] /= _fft_n; }
-    return y;
+    base_fft_t(x.data(), _fft_n, ep);
+    rep(i, _fft_n) { x[i] /= _fft_n; }
+    return x;
   }
   template <typename T>
   static V inv_t(const vector<T>& x, int fft_n) {
