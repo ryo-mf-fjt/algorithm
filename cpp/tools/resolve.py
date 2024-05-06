@@ -1,7 +1,8 @@
-import sys, os, re
+import sys, re
+from pathlib import Path
 
 
-def resolve(fn: str, included: set):
+def resolve(fn: str, included: Path):
     code = open(fn).read()
 
     def replacer(fullpath: str):
@@ -13,7 +14,7 @@ def resolve(fn: str, included: set):
 
     return re.sub(
         r'^#include "(.+)"$',
-        lambda match: replacer(os.path.join(os.path.dirname(fn), match.group(1))),
+        lambda match: replacer((Path(fn).parent / match.group(1)).resolve()),
         code,
         flags=re.MULTILINE,
     )

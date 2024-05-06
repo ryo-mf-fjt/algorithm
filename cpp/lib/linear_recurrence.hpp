@@ -1,5 +1,5 @@
-#include "ntt.hpp"
-#include "polynomial.hpp"
+#include "fps.hpp"
+#include "util/ntt_polynomial_mul.hpp"
 
 // k = 3 なら
 // a_3 = c_2 * a_2 + c_1 * a_1 + c_0 * a_0
@@ -16,5 +16,5 @@ T nth_linear_recurrence(CIt c, AIt a, int k, ll n) {
   }
   vector<T> f = PolynomialMul<AIt, VTIt>()(a, k, g.begin(), k);
   f.erase(f.begin() + k, f.end());
-  return nth_polynomial_div(f.begin(), k, g.begin(), k + 1, n);
+  return nth_fps_div(f.begin(), k, g.begin(), k + 1, n);
 }
