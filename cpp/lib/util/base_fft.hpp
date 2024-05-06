@@ -3,20 +3,19 @@
 
 template <typename T>
 void _base_fft_t(T x[], int n, const vector<T>& ep) {
-  if (n == 1) {
-    return;
+  for (int k = n; k >= 2; k >>= 1) {
+    int hk = k >> 1;
+    int d = n / k;
+    for (int p = 0; p < n; p += k) {
+      rep(i, hk) {
+        int j = i + hk;
+        T a = x[p + i];
+        T b = x[p + j];
+        x[p + i] = a + b;
+        x[p + j] = a * ep[d * i] + b * ep[d * j];
+      }
+    }
   }
-  int hn = n >> 1;
-  int d = ep.size() / n;
-  rep(i, hn) {
-    int j = i + hn;
-    T a = x[i];
-    T b = x[j];
-    x[i] = a + b;
-    x[j] = a * ep[d * i] + b * ep[d * j];
-  }
-  _base_fft_t(x, hn, ep);
-  _base_fft_t(x + hn, hn, ep);
 }
 
 template <typename T>
