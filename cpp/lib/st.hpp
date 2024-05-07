@@ -42,11 +42,11 @@ class St {
   T get(int i) { return st[i + _N - 1]; }
 
   void set(int i, const T& x) {
-    int _i = i + _N - 1;
-    st[_i] = x;
-    while (_i > 0) {
-      _i = (_i - 1) / 2;
-      st[_i] = comp(st[_i * 2 + 1], st[_i * 2 + 2]);
+    int k = i + _N - 1;
+    st[k] = x;
+    while (k > 0) {
+      k = (k - 1) / 2;
+      st[k] = comp(st[k * 2 + 1], st[k * 2 + 2]);
     }
   }
 

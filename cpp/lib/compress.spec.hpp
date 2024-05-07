@@ -4,8 +4,7 @@
 
 TEST(compress, normal) {
   vector<int> x = {2, 4, 3, 1};
-  vector<pair<int, int>> correspondence = compress(x.begin(), 4);
+  vector<int> coord = compress(x.begin(), 4);
   EXPECT_EQ(x, vector<int>({1, 3, 2, 0}));
-  EXPECT_EQ(correspondence,
-            (vector<pair<int, int>>({{1, 3}, {2, 0}, {3, 2}, {4, 1}})));
+  EXPECT_EQ(coord, vector<int>({1, 2, 3, 4}));
 }
