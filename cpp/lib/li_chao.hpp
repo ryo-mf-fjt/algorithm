@@ -1,3 +1,5 @@
+#include <functional>
+
 #include "base.hpp"
 #include "util/pow2_ceil.hpp"
 
