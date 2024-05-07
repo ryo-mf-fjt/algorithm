@@ -44,4 +44,7 @@ oj/%: FORCE
 	$(GPP) main_resolved.cpp -o main && \
 	oj test --command ./main
 
+oj: FORCE
+	ls -1 oj | xargs -I {} make oj/{}@fast
+
 FORCE:
