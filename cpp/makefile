@@ -16,6 +16,7 @@ test_compiple:
 	$(RESOLVE) **/*.spec.hpp > test.cpp
 	$(GPP) test.cpp -o test -lgtest -lgtest_main
 
+# なんとかしたい
 oj/%: T=${@:oj/%=%}
 oj/%@fast: T=${@:oj/%@fast=%}
 oj/%@download: T=${@:oj/%@download=%}
