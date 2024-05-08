@@ -77,6 +77,11 @@ inline bool operator==(const Frac<T> &x, const Frac<T> &y) {
 }
 
 template <typename T>
+inline bool operator!=(const Frac<T> &x, const Frac<T> &y) {
+  return x.a != y.a || x.b != y.b;
+}
+
+template <typename T>
 inline bool operator<=(const Frac<T> &x, const Frac<T> &y) {
   return x.a * y.b <= y.a * x.b;
 }
