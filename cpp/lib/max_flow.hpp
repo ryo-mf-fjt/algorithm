@@ -18,6 +18,12 @@ class MaxFlow {
   int iter[N];
 
  public:
+  MaxFlow() : n(0) {}
+  template <typename E>
+  MaxFlow(vector<E> g[], int n) {
+    init(g, n);
+  }
+
   template <typename E>
   void init(vector<E> g[], int n) {
     this->n = n;
