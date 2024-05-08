@@ -2,7 +2,8 @@
 
 template <typename M,
           typename T = remove_reference_t<decltype(declval<M>()[0][0])>>
-vector<int> row_reduction(M& a, int n, int m) {
+enable_if_t<!is_convertible_v<T, bool>, vector<int>> row_reduction(M& a, int n,
+                                                                   int m) {
   vector<int> pivots;
   int p = 0;
   rep(q, m) {
@@ -30,6 +31,36 @@ vector<int> row_reduction(M& a, int n, int m) {
       T t = a[i][q];
       for (int j = q; j < m; ++j) {
         a[i][j] -= a[p][j] * t;
+      }
+    }
+    ++p;
+  }
+  return pivots;
+}
+template <typename M,
+          typename T = remove_reference_t<decltype(declval<M>()[0][0])>>
+enable_if_t<is_convertible_v<T, bool>, vector<int>> row_reduction(M& a, int n,
+                                                                  int m) {
+  vector<int> pivots;
+  int p = 0;
+  rep(q, m) {
+    int x = -1;
+    for (int i = p; i < n; ++i) {
+      if (a[i][q]) {
+        x = i;
+        break;
+      }
+    }
+    if (x == -1) {
+      continue;
+    }
+    pivots.push_back(q);
+    // row_p と row_x を入れ替える
+    swap(a[p], a[x]);
+    for (int i = p + 1; i < n; ++i) {
+      bool t = a[i][q];
+      if (t) {
+        a[i] ^= a[p];
       }
     }
     ++p;
