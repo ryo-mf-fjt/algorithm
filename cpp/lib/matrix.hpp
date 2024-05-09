@@ -67,3 +67,6 @@ enable_if_t<is_convertible_v<T, bool>, vector<int>> row_reduction(M& a, int n,
   }
   return pivots;
 }
+
+// TODO
+// kernel
