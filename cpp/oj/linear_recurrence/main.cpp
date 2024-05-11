@@ -12,19 +12,17 @@ M a[100000];
 M c[100000];
 
 int main() {
-  cin.tie(nullptr);
-  ios_base::sync_with_stdio(false);
-  cin >> d >> k;
+  scanf("%d%lld", &d, &k);
   rep(i, d) {
     int _a;
-    cin >> _a;
+    scanf("%d", &_a);
     a[i] = _a;
   }
   rep(i, d) {
     int _c;
-    cin >> _c;
+    scanf("%d", &_c);
     c[d - i - 1] = _c;
   }
   M ans = nth_linear_recurrence(c, a, d, k);
-  cout << ans << endl;
+  printf("%lld\n", ans.val);
 }
