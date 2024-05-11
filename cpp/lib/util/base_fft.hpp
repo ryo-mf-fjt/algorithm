@@ -21,7 +21,7 @@ void _base_fft_t(T x[], int n, const vector<T>& ep) {
 template <typename T>
 void index_bit_reverse(T x[], int k) {
   rep(i, 1 << k) {
-    int j = (bit_reverse(i) >> (32 - k)) & ((1 << k) - 1);
+    int j = uint(bit_reverse(i)) >> (32 - k);
     if (i < j) {
       swap(x[i], x[j]);
     }
