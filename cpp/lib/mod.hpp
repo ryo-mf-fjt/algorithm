@@ -14,23 +14,46 @@ class Mod {
   inline Mod() : val(0) {}
   inline Mod(ll val) : val(reg_mod(val, mod)) {}
 
-  inline Mod operator+(const Mod &x) const { return Mod(this->val + x.val); }
-  inline Mod operator-(const Mod &x) const { return Mod(this->val - x.val); }
-  inline Mod operator*(const Mod &x) const { return Mod(this->val * x.val); }
+  inline Mod operator+(const Mod &x) const {
+    Mod t = *this;
+    t += x;
+    return t;
+  }
+  inline Mod operator-(const Mod &x) const {
+    Mod t = *this;
+    t -= x;
+    return t;
+  }
+  inline Mod operator*(const Mod &x) const {
+    Mod t = *this;
+    t *= x;
+    return t;
+  }
   // mod は素数
-  inline Mod operator/(const Mod &x) const { return *this * b_pow(x, mod - 2); }
-  inline Mod operator-() const { return Mod(-this->val); }
+  inline Mod operator/(const Mod &x) const {
+    Mod t = *this;
+    t /= x;
+    return t;
+  }
+  inline Mod operator-() const { return Mod() - *this; }
 
   inline Mod &operator+=(const Mod &x) {
-    this->val = (this->val + x.val) % mod;
+    this->val += x.val;
+    if (this->val >= mod) {
+      this->val -= mod;
+    }
     return *this;
   }
   inline Mod &operator-=(const Mod &x) {
-    this->val = (this->val - x.val + mod) % mod;
+    this->val += mod - x.val;
+    if (this->val >= mod) {
+      this->val -= mod;
+    }
     return *this;
   }
   inline Mod &operator*=(const Mod &x) {
-    this->val = (this->val * x.val) % mod;
+    this->val *= x.val;
+    this->val %= mod;
     return *this;
   }
   // mod は素数
