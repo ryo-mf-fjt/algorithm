@@ -27,7 +27,7 @@ TEST(nth_fps_div, two_variable) {
   };
   VV f = {{1}};
   VV g = {{1}, {0, 1}};
-  EXPECT_EQ((nth_fps_div<VVIt, VVIt, NTT2VariablePolynomialMul, V, Negate>(
+  EXPECT_EQ((nth_fps_div<VVIt, VVIt, TwoVariablePolynomialMul, V, Negate>(
                 f.begin(), 1, g.begin(), 2, 5)),
             V({0, 0, 0, 0, 0, -1}));
 }
