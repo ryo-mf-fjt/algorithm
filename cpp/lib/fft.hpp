@@ -42,10 +42,10 @@ class FFT {
     return inv_t(x.begin(), x.end(), fft_n);
   }
 
-  // 結果の長さは |x| + |y| - 1
+  // 結果の長さは max(|x|, 1) + max(|y|, 1) - 1
   template <typename XIt, typename YIt>
   static V conv(XIt x_first, XIt x_last, YIt y_first, YIt y_last) {
-    int n = (x_last - x_first) + (y_last - y_first) - 1;
+    int n = max(int(x_last - x_first), 1) + max(int(y_last - y_first), 1) - 1;
     int _fft_n = pow2_ceil(n);
     V a = t(x_first, x_last, _fft_n);
     V b = t(y_first, y_last, _fft_n);

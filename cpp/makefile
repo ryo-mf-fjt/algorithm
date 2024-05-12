@@ -13,7 +13,7 @@ compile:
 	$(GPP) main_resolved.cpp -o main
 
 test_compiple:
-	$(RESOLVE) **/*.spec.hpp > test.cpp
+	$(RESOLVE) `find . -name "*.spec.hpp"` > test.cpp
 	$(GPP) test.cpp -o test -lgtest -lgtest_main
 
 # なんとかしたい
@@ -32,15 +32,15 @@ oj/%@download:
 	fi
 
 oj/%@fast:
-	make oj/$(T)@download && \
-	$(RESOLVE) oj/$(T)/main.cpp > oj/$(T)/main_resolved.cpp && \
+	make oj/$(T)@download
+	$(RESOLVE) oj/$(T)/main.cpp > oj/$(T)/main_resolved.cpp
 	cd oj/$(T) && \
 	$(GPP_FAST) main_resolved.cpp -o main && \
 	oj test --command ./main
 
 oj/%: FORCE
-	make oj/$(T)@download && \
-	$(RESOLVE) oj/$(T)/main.cpp > oj/$(T)/main_resolved.cpp && \
+	make oj/$(T)@download
+	$(RESOLVE) oj/$(T)/main.cpp > oj/$(T)/main_resolved.cpp
 	cd oj/$(T) && \
 	$(GPP) main_resolved.cpp -o main && \
 	oj test --command ./main
