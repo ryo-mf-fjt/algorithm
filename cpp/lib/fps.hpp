@@ -1,4 +1,3 @@
-#include "debug.hpp"
 #include "util/ntt_polynomial_mul.hpp"
 
 // g[0] = 1 とする
@@ -25,13 +24,15 @@ T nth_fps_div(FIt f, int fn, GIt g, int gn, ll n) {
     vector<T> u(un);
     rep(i, un) { u[i] = fsg[2 * i]; }
     return nth_fps_div<VIt, VIt, PolynomialMul, T, Negate>(
-        u.begin(), un, p.begin(), gn, n / 2);
+        u.begin(), min<ll>(un, n / 2 + 1), p.begin(), min<ll>(gn, n / 2 + 1),
+        n / 2);
   } else {
     int vn = (fn + gn - 1) / 2;
     vector<T> v(vn);
     rep(i, vn) { v[i] = fsg[2 * i + 1]; }
     return nth_fps_div<VIt, VIt, PolynomialMul, T, Negate>(
-        v.begin(), vn, p.begin(), gn, (n - 1) / 2);
+        v.begin(), min<ll>(vn, n / 2 + 1), p.begin(), min<ll>(gn, n / 2 + 1),
+        n / 2);
   }
 }
 
@@ -108,4 +109,54 @@ vector<T> fps_exp(It f, int fn, int n) {
   }
   g.erase(g.begin() + n, g.end());
   return g;
+}
+
+// f[0] = 1 とする
+template <typename It,
+          template <typename, typename>
+          typename PolynomialMul = NTTPolynomialMul,
+          typename T = typename iterator_traits<It>::value_type>
+vector<T> fps_pow(It f, int fn, typename iterator_traits<It>::value_type k,
+                  int n) {
+  vector<T> x = fps_log(f, fn, n);
+  rep(i, n) { x[i] *= k; }
+  return fps_exp(x.begin(), n, n);
+}
+
+// f[0] = 0 とする
+template <typename It,
+          template <typename, typename>
+          typename PolynomialMul = NTTPolynomialMul,
+          typename T = typename iterator_traits<It>::value_type>
+vector<T> fps_func_inv(It f, int fn, int n) {
+  using V = vector<T>;
+  using VV = vector<V>;
+  using VVIt = typename VV::iterator;
+  struct Negate {
+    V operator()(const V &x) const {
+      V t = x;
+      for (auto &v : t) {
+        v = -v;
+      }
+      return t;
+    }
+  };
+  VV p = {{1}};
+  VV q(max(fn, 1));
+  q[0] = {1};
+  for (int i = 1; i < fn; ++i) {
+    q[i].resize(2);
+    q[i][1] = -f[i];
+  }
+  int k = max(n - 1, 1);
+  V kth_f_pows = nth_fps_div<VVIt, VVIt, NTT2VariablePolynomialMul, V, Negate>(
+      p.begin(), 1, q.begin(), q.size(), k);
+  V x(k);
+  rep(i, k) { x[i] = kth_f_pows[k - i] * k / (k - i); }
+  V x_pow = fps_pow(x.begin(), k, -T(1) / k, k);
+  V y(n);
+  for (int i = 1; i < n; ++i) {
+    y[i] = x_pow[i - 1];
+  }
+  return y;
 }

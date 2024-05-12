@@ -52,3 +52,15 @@ TEST(fps_exp, normal) {
   EXPECT_EQ(fps_exp(f.begin(), 2, 5),
             vector<M>({1, 1, M(1) / 2, M(1) / 6, M(1) / 24}));
 }
+
+TEST(fps_pow, normal) {
+  using M = Mod<ntt_mod_p_1>;
+  vector<M> f = {1, 1};
+  EXPECT_EQ(fps_pow(f.begin(), 2, 5, 5), vector<M>({1, 5, 10, 10, 5}));
+}
+
+TEST(fps_func_inv, normal) {
+  using M = Mod<ntt_mod_p_1>;
+  vector<M> f = {0, 1, 1};
+  EXPECT_EQ(fps_func_inv(f.begin(), 3, 5), vector<M>({0, 1, -1, 2, -5}));
+}
