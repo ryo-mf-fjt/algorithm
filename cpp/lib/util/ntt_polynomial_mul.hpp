@@ -27,11 +27,11 @@ class TwoVariablePolynomialMulWith {
     rep(i, gn) { gyn = max(int(g[i].size()), gyn); }
     vector<T> ff(w * (fyn - 1) + fn);
     rep(i, fn) {
-      rep(j, int(f[i].size())) { ff[i + w * j] = f[i][j]; }
+      rep(j, f[i].size()) { ff[i + w * j] = f[i][j]; }
     }
     vector<T> gg(w * (gyn - 1) + gn);
     rep(i, gn) {
-      rep(j, int(g[i].size())) { gg[i + w * j] = g[i][j]; }
+      rep(j, g[i].size()) { gg[i + w * j] = g[i][j]; }
     }
     vector<T> xx = NTTPolynomialMul<VIt, VIt>()(ff.begin(), ff.size(),
                                                 gg.begin(), gg.size());
