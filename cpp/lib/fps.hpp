@@ -6,8 +6,10 @@ template <typename FIt, typename GIt,
           typename PolynomialMul = NTTPolynomialMul,
           typename T = typename iterator_traits<FIt>::value_type,
           typename Negate = negate<T>>
-T nth_fps_div(FIt f, int fn, GIt g, int gn, ll n) {
+T nth_fps_div(FIt f, int _fn, GIt g, int _gn, ll n) {
   using VIt = typename vector<T>::iterator;
+  int fn = min<ll>(_fn, n + 1);
+  int gn = min<ll>(_gn, n + 1);
   if (n == 0) {
     return fn ? f[0] : T();
   }
@@ -19,21 +21,12 @@ T nth_fps_div(FIt f, int fn, GIt g, int gn, ll n) {
   vector<T> p(gn);
   rep(i, gn) { p[i] = gsg[2 * i]; }
   vector<T> fsg = PolynomialMul<FIt, VIt>()(f, fn, sg.begin(), gn);
-  if (n % 2 == 0) {
-    int un = (fn + gn) / 2;
-    vector<T> u(un);
-    rep(i, un) { u[i] = fsg[2 * i]; }
-    return nth_fps_div<VIt, VIt, PolynomialMul, T, Negate>(
-        u.begin(), min<ll>(un, n / 2 + 1), p.begin(), min<ll>(gn, n / 2 + 1),
-        n / 2);
-  } else {
-    int vn = (fn + gn - 1) / 2;
+  int b = n % 2;
+  int vn = (fn + gn - b) / 2;
     vector<T> v(vn);
-    rep(i, vn) { v[i] = fsg[2 * i + 1]; }
-    return nth_fps_div<VIt, VIt, PolynomialMul, T, Negate>(
-        v.begin(), min<ll>(vn, n / 2 + 1), p.begin(), min<ll>(gn, n / 2 + 1),
-        n / 2);
-  }
+  rep(i, vn) { v[i] = fsg[2 * i + b]; }
+  return nth_fps_div<VIt, VIt, PolynomialMul, T, Negate>(v.begin(), vn,
+                                                         p.begin(), gn, n / 2);
 }
 
 // f[0] = 1 とする
