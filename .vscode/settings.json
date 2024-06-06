@@ -11,5 +11,13 @@
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
   },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.addMissingImports": "explicit",
+      "source.removeUnusedImports": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
   "cSpell.ignoreWords": ["treap", "chao"]
 }

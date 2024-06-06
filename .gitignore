@@ -8,3 +8,5 @@ cpp/oj/*/main_resolved.cpp
 cpp/oj/*/main
 
 rust/target
+
+ts/node_modules
